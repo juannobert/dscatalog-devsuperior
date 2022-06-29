@@ -1,5 +1,6 @@
 package com.devsuperior.curso.entities;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "tb_product")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Product {
+public class Product implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,7 +89,7 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getImageUrl() {
+	public String getImgUrl() {
 		return imgUrl;
 	}
 

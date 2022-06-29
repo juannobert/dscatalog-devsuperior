@@ -1,5 +1,7 @@
 package com.devsuperior.curso.dto;
 
+import java.io.Serializable;
+
 import com.devsuperior.curso.entities.Category;
 
 import lombok.Data;
@@ -9,8 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-public class CategoryDTO {
-	
+public class CategoryDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	private String name;
