@@ -94,7 +94,7 @@ public class Product implements Serializable{
 		return imgUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
+	public void setImgUrl(String imageUrl) {
 		this.imgUrl = imageUrl;
 	}
 
