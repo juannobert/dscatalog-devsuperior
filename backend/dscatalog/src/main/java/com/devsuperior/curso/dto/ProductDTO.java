@@ -2,7 +2,8 @@ package com.devsuperior.curso.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.devsuperior.curso.entities.Category;
@@ -33,7 +34,7 @@ public class ProductDTO implements Serializable{
 	
 	private Instant date;
 	
-	private Set<CategoryDTO> categories = new HashSet<>();
+	private List<CategoryDTO> categories = new ArrayList<>();
 
 	public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
 		this.id = id;
@@ -55,7 +56,7 @@ public class ProductDTO implements Serializable{
 	
 	public ProductDTO(Product entity, Set<Category> categories) {
 		this(entity);
-		categories.stream().map(cat -> this.categories.add(new CategoryDTO(cat)));
+		categories.stream().forEach(cat -> this.categories.add(new CategoryDTO(cat)));
 	}
 	
 	
