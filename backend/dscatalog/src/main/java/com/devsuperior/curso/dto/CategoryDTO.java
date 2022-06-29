@@ -4,9 +4,11 @@ import com.devsuperior.curso.entities.Category;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 public class CategoryDTO {
 	
 	private Long id;
