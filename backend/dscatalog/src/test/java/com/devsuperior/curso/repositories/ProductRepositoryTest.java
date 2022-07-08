@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.devsuperior.curso.entities.Product;
+import com.devsuperior.curso.tests.factory.ProductFactory;
 
 @DataJpaTest
 public class ProductRepositoryTest {
@@ -19,11 +20,13 @@ public class ProductRepositoryTest {
 	
 	private long exintingId;
 	private long nonExistingId;
+	private long countTotalProducts;
 	
 	@BeforeEach
 	void setUp() throws Exception{
 		exintingId = 1L;
 		nonExistingId = 100L;
+		countTotalProducts = 25L;
 	}
 	
 	@Test
@@ -41,4 +44,26 @@ public class ProductRepositoryTest {
 			productRepository.deleteById(nonExistingId);
 		});
 	}
+	
+	@Test
+	public void saveShouldPersistWithAutoIncrementWhenIdIsNUll() {
+		Product product = ProductFactory.createProduct();
+		
+		product.setId(null);
+		product = productRepository.save(product);
+		
+		Assertions.assertNotNull(product.getId());
+		Assertions.assertEquals(countTotalProducts+1, product.getId());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
