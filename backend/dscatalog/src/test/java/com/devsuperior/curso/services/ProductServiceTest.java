@@ -52,6 +52,7 @@ public class ProductServiceTest {
 	private Category category;
 	
 	private PageImpl<Product> page;
+	
 	@BeforeEach
 	void setUp() throws Exception{
 		existingId = 1L;

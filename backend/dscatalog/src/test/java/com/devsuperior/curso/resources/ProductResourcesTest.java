@@ -3,6 +3,7 @@ package com.devsuperior.curso.resources;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import com.devsuperior.curso.dto.ProductDTO;
 import com.devsuperior.curso.services.ProductService;
+import com.devsuperior.curso.services.exceptions.ResourceNotFoundException;
 import com.devsuperior.curso.tests.factory.ProductFactory;
 
 
@@ -32,7 +34,9 @@ public class ProductResourcesTest {
 	@MockBean
 	private ProductService service;
 	
+	private Long existingId;
 	
+	private Long nonExistingId;
 	
 	private PageImpl<ProductDTO> page;
 	
@@ -42,6 +46,11 @@ public class ProductResourcesTest {
 	public void setUp() throws Exception{
 		productDTO = ProductFactory.createProductDTO();
 		page = new PageImpl<>(List.of(productDTO));
+		existingId = 1L;
+		nonExistingId = 2L;
+		
+		when(service.findById(existingId)).thenReturn(productDTO);
+		when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
 		
 		when(service.findAllPaged(any())).thenReturn(page);
 	}
@@ -51,6 +60,21 @@ public class ProductResourcesTest {
 		ResultActions result = mockMvc.perform(get("/products")
 					.accept(MediaType.APPLICATION_JSON));
 		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void findByIdShouldReturnProductDTOWhenIdExists() throws Exception {
+		ResultActions result = mockMvc.perform(get("/products/{id}",existingId)
+				.accept(MediaType.APPLICATION_JSON));
+		result.andExpect(status().isOk());
 		
+		result.andExpect(jsonPath("$.id").exists());
+	}
+	
+	@Test
+	public void findByIdShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
+		ResultActions result = mockMvc.perform(get("/products/{id}",nonExistingId)
+				.accept(MediaType.APPLICATION_JSON));
+		result.andExpect(status().isNotFound());
 	}
 }
