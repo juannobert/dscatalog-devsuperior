@@ -19,4 +19,5 @@ public class ProductFactory {
 		return new ProductDTO(product,product.getCategories());
 		
 	}
+	
 }
