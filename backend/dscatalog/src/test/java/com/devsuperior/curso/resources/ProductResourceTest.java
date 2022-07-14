@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @WebMvcTest(ProductResource.class)
-public class ProductResourcesTest {
+public class ProductResourceTest {
 
 	@Autowired
 	private MockMvc mockMvc;

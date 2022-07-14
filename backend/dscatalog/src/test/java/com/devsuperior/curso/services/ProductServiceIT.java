@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.curso.dto.ProductDTO;
@@ -61,6 +62,33 @@ public class ProductServiceIT {
 		Assertions.assertEquals(25, page.getTotalElements());
 		
 	}
+	
+	@Test
+	public void findAllPagedShouldReturnEmptyPageWhenIdDoesNotExist() {
+		
+		PageRequest pageRquest = PageRequest.of(50, 10); // Página 0 com 10 elementos
+		
+		Page<ProductDTO> page = service.findAllPaged(pageRquest);
+		
+		Assertions.assertTrue(page.isEmpty());
+		
+	}
+	@Test
+	
+	public void findAllPagedShouldReturnSortedPageWhenSortedByName() {
+		
+		PageRequest pageRquest = PageRequest.of(0, 10,Sort.by("name")); // Página 0 com 10 elementos
+		
+		Page<ProductDTO> page = service.findAllPaged(pageRquest);
+		
+		Assertions.assertFalse(page.isEmpty());
+		Assertions.assertEquals("Macbook Pro", page.getContent().get(0).getName());
+		Assertions.assertEquals("PC Gamer", page.getContent().get(1).getName());
+		Assertions.assertEquals("PC Gamer Alfa", page.getContent().get(2).getName());
+		
+	}
+	
+	
 	
 	
 	
