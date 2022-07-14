@@ -5,11 +5,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.curso.dto.ProductDTO;
 import com.devsuperior.curso.repositories.ProductRepository;
 import com.devsuperior.curso.services.exceptions.ResourceNotFoundException;
 
 @SpringBootTest
+@Transactional
 public class ProductServiceIT {
 
 	@Autowired
@@ -42,5 +47,30 @@ public class ProductServiceIT {
 			service.delete(nonExistingId);
 		});
 	}
+	
+	@Test
+	public void findAllPagedShouldReturnPage0Size10() {
+		
+		PageRequest pageRquest = PageRequest.of(0, 10); // Página 0 com 10 elementos
+		
+		Page<ProductDTO> page = service.findAllPaged(pageRquest);
+		
+		Assertions.assertFalse(page.isEmpty());
+		Assertions.assertEquals(0, page.getNumber());
+		Assertions.assertEquals(10, page.getSize());
+		Assertions.assertEquals(25, page.getTotalElements());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
