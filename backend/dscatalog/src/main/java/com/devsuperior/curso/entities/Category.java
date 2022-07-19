@@ -2,13 +2,18 @@ package com.devsuperior.curso.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.EqualsAndHashCode;
 
@@ -25,11 +30,13 @@ public class Category implements Serializable{
 	
 	private String name;
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@CreationTimestamp
 	private Instant createdAt;
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@UpdateTimestamp
 	private Instant updateAt;
+	@ManyToMany(mappedBy = "categories")
+	private Set<Product> products = new HashSet<>();
 	
 	public Category() {}
 	
@@ -54,21 +61,11 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 
-	public Instant getCreatAt() {
-		return createdAt;
+	public Set<Product> getProducts() {
+		return products;
 	}
 
-	public void setCreatAt(Instant creatAt) {
-		this.createdAt = creatAt;
-	}
-
-	public Instant getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(Instant updateAt) {
-		this.updateAt = updateAt;
-	}
+	
 	
 	
 	

@@ -74,7 +74,6 @@ public class ProductServiceIT {
 		
 	}
 	@Test
-	
 	public void findAllPagedShouldReturnSortedPageWhenSortedByName() {
 		
 		PageRequest pageRquest = PageRequest.of(0, 10,Sort.by("name")); // Página 0 com 10 elementos
