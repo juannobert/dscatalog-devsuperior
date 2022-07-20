@@ -31,9 +31,5 @@ public class CategoryDTO implements Serializable{
 		super();
 		this.id = id;
 		this.name = name;
-	}
-	
-	
-	
-	
+	}	
 }
