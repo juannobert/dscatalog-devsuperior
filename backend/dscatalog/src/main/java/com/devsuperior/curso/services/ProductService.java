@@ -22,7 +22,7 @@ import com.devsuperior.curso.services.exceptions.DataBaseException;
 import com.devsuperior.curso.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class ProductService {
+public class ProductService{
 
 	@Autowired
 	private ProductRepository repository;
