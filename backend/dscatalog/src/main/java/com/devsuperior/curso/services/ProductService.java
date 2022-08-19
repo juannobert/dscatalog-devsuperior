@@ -30,8 +30,9 @@ public class ProductService{
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	public Page<ProductDTO> findAllPaged(Pageable pageable) {
-		Page<Product> list = repository.findAll(pageable);
+	public Page<ProductDTO> findAllPaged(Pageable pageable,Long categoryId) {
+		Category category = (categoryId == 0 ? null : categoryRepository.getReferenceById(categoryId));
+		Page<Product> list = repository.find(category,pageable);
 		return list.map(x -> new ProductDTO(x,x.getCategories()));
 	}
 
