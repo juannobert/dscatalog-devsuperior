@@ -1,5 +1,7 @@
 package com.devsuperior.curso.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,9 +14,8 @@ import com.devsuperior.curso.entities.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
 	
-	@Query(value = "SELECT DISTINCT obj FROM Product obj "
-			+ "INNER JOIN obj.categories cats "
-			+ "WHERE (:category IS NULL OR :category IN cats) AND "
-			+ "(UPPER(obj.name) LIKE UPPER(CONCAT('%',:name,'%')) )")
-	Page<Product> find(Category category,Pageable pageable,String name);
+	@Query("SELECT DISTINCT obj FROM Product obj INNER JOIN obj.categories cats WHERE "
+			+ "(COALESCE(:categories) IS NULL OR cats IN :categories) AND "
+			+ "(LOWER(obj.name) LIKE LOWER(CONCAT('%',:name,'%')) )")
+	Page<Product> find(List<Category> categories,Pageable pageable,String name);
 }

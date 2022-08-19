@@ -30,10 +30,10 @@ public class Category implements Serializable{
 	
 	private String name;
 	
-	@CreationTimestamp
+	//@CreationTimestamp
 	private Instant createdAt;
 	
-	@UpdateTimestamp
+	//@UpdateTimestamp
 	private Instant updateAt;
 	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
@@ -63,6 +63,22 @@ public class Category implements Serializable{
 
 	public Set<Product> getProducts() {
 		return products;
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Instant getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Instant updateAt) {
+		this.updateAt = updateAt;
 	}
 
 	
