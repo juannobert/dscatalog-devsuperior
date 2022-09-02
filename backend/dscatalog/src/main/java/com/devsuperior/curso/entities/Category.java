@@ -1,7 +1,6 @@
 package com.devsuperior.curso.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,11 +26,7 @@ public class Category implements Serializable{
 	
 	private String name;
 	
-	//@CreationTimestamp
-	private Instant createdAt;
 	
-	//@UpdateTimestamp
-	private Instant updateAt;
 	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
 	
@@ -62,21 +57,6 @@ public class Category implements Serializable{
 		return products;
 	}
 
-	public Instant getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Instant getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(Instant updateAt) {
-		this.updateAt = updateAt;
-	}
 
 	
 	
