@@ -1,13 +1,12 @@
-
-import "./assets/styles/custom.scss";
+import 'assets/styles/custom.scss';
 import './App.css';
-import Home from "pages/Home";
-const App = () => {
+
+import Routes from 'Routes';
+
+function App() {
   return (
-    <>
-    <Home/>
-    </>
-  )
-};
+    <Routes />
+  );
+}
 
 export default App;
